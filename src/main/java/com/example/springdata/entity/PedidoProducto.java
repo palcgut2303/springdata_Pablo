@@ -1,11 +1,17 @@
 package com.example.springdata.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "pedido_producto")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class PedidoProducto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

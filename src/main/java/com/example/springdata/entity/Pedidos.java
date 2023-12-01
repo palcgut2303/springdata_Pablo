@@ -22,7 +22,7 @@ public class Pedidos {
     @Column(name = "direccion_envio",nullable = false)
     private String direccionEnvio;
 
-    @Column(name = "usuario",nullable = false)
+
     @ManyToOne
     @JoinColumn(name = "id")
     private Usuario usuario;

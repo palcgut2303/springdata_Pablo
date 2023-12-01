@@ -34,8 +34,6 @@ public class Productos {
     @Column(name = "categoria",nullable = false)
     private String categoria;
 
-
-
     @OneToMany(mappedBy = "producto")
     private ArrayList<PedidoProducto> pedidosEnPedidos;
 
