@@ -6,7 +6,6 @@ import com.example.springdata.Repositories.UserRepository;
 import com.example.springdata.entity.Pedidos;
 import com.example.springdata.entity.Usuario;
 import com.example.springdata.entity.tipoUsuario;
-import lombok.var;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
