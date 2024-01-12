@@ -28,10 +28,6 @@ public class SpringdataApplication {
 
 		var productRepo = context.getBean(ProductRepository.class);
 
-
-
-
-
 	}
 
 }

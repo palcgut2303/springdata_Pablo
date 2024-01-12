@@ -8,10 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<Usuario,Long> {
-    @Override
-    Optional<Usuario> findById(Long aLong);
-    List<Usuario> findByNombre(String nombre);
-    List<Usuario> findByNombreAndAndApellidos(String nombre, String apellidos);
-    List<Usuario> findAllByFechaNacimientoAfter(LocalDate fechaNacimiento);
-    List<Usuario> findAllByFechaNacimientoBetween(LocalDate fechaMin, LocalDate fechaMax);
+
+    Optional<Usuario> findByNombre(String nombre);
+    Optional<Usuario> findByNombreAndAndApellidos(String nombre, String apellidos);
+    Optional<Usuario> findAllByFechaNacimientoAfter(LocalDate fechaNacimiento);
+    Optional<Usuario> findAllByFechaNacimientoBetween(LocalDate fechaMin, LocalDate fechaMax);
 }
