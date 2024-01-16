@@ -38,6 +38,6 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private tipoUsuario tipoUsuarioo;
 
-    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario")
     private Set<Pedidos> pedidos = new HashSet<>();
 }

@@ -37,7 +37,7 @@ public class Productos {
     @Column(name = "categoria",nullable = false)
     private String categoria;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
     @JsonBackReference
     @JoinTable(name = "pedidos_productos",
             joinColumns = @JoinColumn(name = "cod_producto",referencedColumnName = "cod_producto"),

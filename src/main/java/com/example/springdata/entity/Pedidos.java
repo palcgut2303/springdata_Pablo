@@ -42,7 +42,7 @@ public class Pedidos {
     private Usuario usuario;
 
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany
 
     @JoinTable(name = "pedidos_productos",
                 joinColumns = @JoinColumn(name = "cod_pedido",referencedColumnName = "cod_pedido"),
