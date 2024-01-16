@@ -4,9 +4,11 @@ package com.example.springdata.controllers;
 import com.example.springdata.Repositories.UserRepository;
 import com.example.springdata.entity.Usuario;
 import com.example.springdata.services.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,12 +35,12 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> create(@RequestBody Usuario user){
+    public ResponseEntity<Usuario> create(@Validated @RequestBody Usuario user){
         return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(user));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> update(@PathVariable Long id, @RequestBody Usuario user){
+    public ResponseEntity<Usuario> update(@PathVariable Long id,@Validated @RequestBody Usuario user){
         Optional <Usuario> userOptional = userRepository.update(id, user);
         if(userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(userOptional.orElseThrow());

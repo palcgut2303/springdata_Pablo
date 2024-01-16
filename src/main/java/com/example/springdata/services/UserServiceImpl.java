@@ -45,8 +45,9 @@ public class UserServiceImpl implements UserService {
             userDB.setNombre(usuario.getNombre());
             userDB.setApellidos(usuario.getApellidos());
             userDB.setDNI(usuario.getDNI());
+            userDB.setCorreo(usuario.getCorreo());
             userDB.setPedidos(usuario.getPedidos());
-            userDB.setFechaNacimiento(usuario.getFechaNacimiento());
+            userDB.setEdad(usuario.getEdad());
             userDB.setTipoUsuarioo(usuario.getTipoUsuarioo());
             return Optional.of(userRepository.save(userDB));
         }

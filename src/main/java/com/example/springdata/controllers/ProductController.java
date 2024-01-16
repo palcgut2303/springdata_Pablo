@@ -2,10 +2,12 @@ package com.example.springdata.controllers;
 
 import com.example.springdata.entity.Productos;
 import com.example.springdata.services.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,12 +32,12 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<Productos> create(@RequestBody Productos product){
+    public ResponseEntity<Productos> create(@RequestBody @Validated Productos product){
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(product));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Productos> update(@PathVariable Long id, @RequestBody Productos product){
+    public ResponseEntity<Productos> update(@PathVariable Long id,@Validated @RequestBody Productos product){
         Optional <Productos> productOptional = productService.update(id, product);
         if(productOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(productOptional.orElseThrow());

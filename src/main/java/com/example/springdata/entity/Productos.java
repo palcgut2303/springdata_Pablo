@@ -2,6 +2,7 @@ package com.example.springdata.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,19 +23,23 @@ public class Productos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cod_producto;
 
-    @Column(name = "nombre_producto",nullable = false)
+    @Column(name = "nombre_producto")
+    @NotNull
     private String nombreProducto;
 
     @Column(name = "descripcion")
     private String descripcion;
 
-    @Column(name = "precio",nullable = false)
+    @Column(name = "precio")
+    @NotNull
     private float precio;
 
-    @Column(name = "cantidad_en_stock",nullable = false)
+    @Column(name = "cantidad_en_stock")
+    @NotNull
     private int cantidadEnStock;
 
-    @Column(name = "categoria",nullable = false)
+    @Column(name = "categoria")
+    @NotNull
     private String categoria;
 
     @ManyToMany

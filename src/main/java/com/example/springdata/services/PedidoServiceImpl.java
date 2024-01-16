@@ -42,6 +42,9 @@ public class PedidoServiceImpl implements PedidoService{
             pedidoDB.setDireccionEnvio(pedidos.getDireccionEnvio());
             pedidoDB.setUsuario(pedidos.getUsuario());
             pedidoDB.setProductos(pedidos.getProductos());
+            pedidoDB.setEstadoPedido(pedidos.getEstadoPedido());
+            pedidoDB.setFechaEntrega(pedidos.getFechaEntrega());
+            pedidoDB.setProductos(pedidos.getProductos());
             return Optional.of(pedidoRepository.save(pedidoDB));
         }
 

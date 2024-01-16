@@ -3,9 +3,11 @@ package com.example.springdata.controllers;
 
 import com.example.springdata.entity.Pedidos;
 import com.example.springdata.services.PedidoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,12 +34,12 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<Pedidos> create(@RequestBody Pedidos product){
+    public ResponseEntity<Pedidos> create(@RequestBody @Validated Pedidos product){
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.save(product));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pedidos> update(@PathVariable Long id, @RequestBody Pedidos product){
+    public ResponseEntity<Pedidos> update(@PathVariable Long id,@Validated @RequestBody Pedidos product){
         Optional <Pedidos> productOptional = pedidoService.update(id, product);
         if(productOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(productOptional.orElseThrow());

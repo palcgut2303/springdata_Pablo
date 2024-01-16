@@ -1,6 +1,7 @@
 package com.example.springdata.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,21 +24,30 @@ public class Usuario {
     private Long id;
 
     @Column(name = "dni",unique = true)
+    @Size(min = 2,max = 9)
+    @NotNull
     private String DNI;
 
+    @Email
+    private String correo;
+
     @Column(name = "nombre")
+    @Size(min = 4,max = 15)
+    @NotEmpty
     private String nombre;
 
     @Column(name = "apellidos")
+    @Size(min = 2,max = 15)
     private String apellidos;
 
-    @Column(name = "fechNacimiento")
-    private LocalDate fechaNacimiento;
+    @Column(name = "Edad")
+    @Min(18)
+    private int Edad;
 
     @Column(name = "tipoUsuario")
     @Enumerated(EnumType.STRING)
     private tipoUsuario tipoUsuarioo;
 
-    @OneToMany(mappedBy = "usuario")
+    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
     private Set<Pedidos> pedidos = new HashSet<>();
 }
