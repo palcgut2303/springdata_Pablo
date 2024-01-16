@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "usuario")
@@ -36,6 +38,6 @@ public class Usuario {
     @Enumerated(EnumType.STRING)
     private tipoUsuario tipoUsuarioo;
 
-    @OneToMany(mappedBy = "usuario")
-    private ArrayList<Pedidos> pedidos = new ArrayList<>();
+    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
+    private Set<Pedidos> pedidos = new HashSet<>();
 }
