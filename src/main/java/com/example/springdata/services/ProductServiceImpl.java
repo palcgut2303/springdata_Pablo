@@ -59,7 +59,7 @@ public class ProductServiceImpl implements ProductService{
         productosOptional.ifPresent(productosDB -> productRepository.delete(productosDB));
         return productosOptional;
     }
-    @Override
+  /*  @Override
     @Transactional
     public List<Productos> findAllByNombreProducto(){
         return productRepository.findAllByNombreProducto();
@@ -69,14 +69,10 @@ public class ProductServiceImpl implements ProductService{
     public Optional<Productos> findProductosByPrecioBetween(float precionMin, float precioMax){
         return productRepository.findProductosByPrecioBetween(precionMin,precioMax);
     }
-    @Override
-    @Transactional
-    public Optional<Productos> findByNombreProducto(String nombreProducto){
-        return productRepository.findByNombreProducto(nombreProducto);
-    }
+
     @Override
     @Transactional
     public Optional<Productos> findProductosByCategoria(String categoria){
         return productRepository.findProductosByCategoria(categoria);
-    }
+    }*/
 }

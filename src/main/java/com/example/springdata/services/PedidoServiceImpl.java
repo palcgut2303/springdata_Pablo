@@ -55,14 +55,9 @@ public class PedidoServiceImpl implements PedidoService{
         peididoOptional.ifPresent( pedidoDb -> pedidoRepository.delete(pedidoDb));
         return peididoOptional;
     }
-    @Override
-    @Transactional
-    public Optional<Pedidos> findPedidosByDireccionEnvioAndUsuario(String direccion,String usuario){
-        return pedidoRepository.findPedidosByDireccionEnvioAndUsuario(direccion,usuario);
-    }
-    @Override
+  /*  @Override
     @Transactional
     public Optional<Pedidos> findByDireccionEnvio(String direccion){
         return pedidoRepository.findByDireccionEnvio(direccion);
-    }
+    }*/
 }

@@ -8,12 +8,14 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
 
+    @Autowired
     private UserRepository userRepository;
 
     @Override
@@ -60,7 +62,7 @@ public class UserServiceImpl implements UserService {
         return userOptional;
     }
 
-    @Override
+  /*  @Override
     @Transactional
     public Optional<Usuario> findByNombre(String nombre) {
         return userRepository.findByNombre(nombre);
@@ -82,5 +84,5 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Optional<Usuario> findAllByFechaNacimientoBetween(LocalDate fechaMin, LocalDate fechaMax) {
         return userRepository.findAllByFechaNacimientoBetween(fechaMin,fechaMax);
-    }
+    }*/
 }

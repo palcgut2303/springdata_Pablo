@@ -7,11 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Productos,Long> {
-
+/*
     List<Productos> findAllByNombreProducto();
     Optional<Productos> findProductosByPrecioBetween(float precionMin, float precioMax);
-    Optional<Productos> findByNombreProducto(String nombreProducto);
 
-    Optional<Productos> findProductosByCategoria(String categoria);
+
+    Optional<Productos> findProductosByCategoria(String categoria);*/
 
 }

@@ -15,7 +15,5 @@ public interface PedidoService {
     Optional <Pedidos> update(Long id, Pedidos pedidos);
     Optional<Pedidos> delete(Long id);
 
-    Optional<Pedidos> findPedidosByDireccionEnvioAndUsuario(String direccion,String usuario);
-
-    Optional<Pedidos> findByDireccionEnvio(String direccion);
+   // Optional<Pedidos> findByDireccionEnvio(String direccion);
 }

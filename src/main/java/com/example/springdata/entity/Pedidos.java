@@ -29,5 +29,5 @@ public class Pedidos {
 
 
     @OneToMany(mappedBy = "pedido")
-    private ArrayList<PedidoProducto> productosEnPedidos;
+    private ArrayList<PedidoProducto> productosEnPedidos = new ArrayList<>();
 }

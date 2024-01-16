@@ -32,9 +32,10 @@ public class Usuario {
     @Column(name = "fechNacimiento")
     private LocalDate fechaNacimiento;
 
-    @Column(name = "tipoUsuario",nullable = false)
+    @Column(name = "tipoUsuario")
+    @Enumerated(EnumType.STRING)
     private tipoUsuario tipoUsuarioo;
 
     @OneToMany(mappedBy = "usuario")
-    private ArrayList<Pedidos> pedidos;
+    private ArrayList<Pedidos> pedidos = new ArrayList<>();
 }

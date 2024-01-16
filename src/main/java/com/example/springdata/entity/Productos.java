@@ -35,6 +35,6 @@ public class Productos {
     private String categoria;
 
     @OneToMany(mappedBy = "producto")
-    private ArrayList<PedidoProducto> pedidosEnPedidos;
+    private ArrayList<PedidoProducto> pedidosEnPedidos = new ArrayList<>();
 
 }
