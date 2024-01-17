@@ -24,22 +24,22 @@ public class Productos {
     private Long cod_producto;
 
     @Column(name = "nombre_producto")
-    @NotNull
+    @NotNull(message = "{NotNull.productos}")
     private String nombreProducto;
 
     @Column(name = "descripcion")
     private String descripcion;
 
     @Column(name = "precio")
-    @NotNull
+    @NotNull(message = "{NotNull.productos}")
     private float precio;
 
     @Column(name = "cantidad_en_stock")
-    @NotNull
+    @NotNull(message = "{NotNull.productos}")
     private int cantidadEnStock;
 
     @Column(name = "categoria")
-    @NotNull
+    @NotNull(message = "{NotNull.productos}")
     private String categoria;
 
     @ManyToMany

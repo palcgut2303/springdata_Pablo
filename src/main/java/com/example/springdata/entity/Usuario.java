@@ -33,11 +33,11 @@ public class Usuario {
 
     @Column(name = "nombre")
     @Size(min = 4,max = 15)
-    @NotEmpty
+    @NotEmpty(message = "{NotEmpty.usuario.nombre}")
     private String nombre;
 
     @Column(name = "apellidos")
-    @Size(min = 2,max = 15)
+    @Size(min = 2,max = 100)
     private String apellidos;
 
     @Column(name = "Edad")

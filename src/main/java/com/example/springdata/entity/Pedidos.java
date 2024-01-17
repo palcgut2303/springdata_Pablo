@@ -28,7 +28,7 @@ public class Pedidos {
     private Long cod_pedido;
 
     @Column(name = "direccion_envio",nullable = false)
-    @NotBlank
+    @NotBlank(message = "{NotBlank.pedidos.direccionEnvio}")
     @Size(min = 5)
     private String direccionEnvio;
 

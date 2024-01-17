@@ -5,6 +5,7 @@ import com.example.springdata.entity.Usuario;
 import org.apache.catalina.User;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Autowired

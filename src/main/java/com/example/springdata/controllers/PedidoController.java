@@ -7,10 +7,13 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -34,12 +37,18 @@ public class PedidoController {
     }
 
     @PostMapping
-    public ResponseEntity<Pedidos> create(@RequestBody @Validated Pedidos product){
+    public ResponseEntity<?> create(@Valid @RequestBody Pedidos product, BindingResult result){
+        if(result.hasFieldErrors()){
+            return validation(result);
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(pedidoService.save(product));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Pedidos> update(@PathVariable Long id,@Validated @RequestBody Pedidos product){
+    public ResponseEntity<?> update(@PathVariable Long id, @Valid @RequestBody Pedidos product, BindingResult result){
+        if(result.hasFieldErrors()){
+            return validation(result);
+        }
         Optional <Pedidos> productOptional = pedidoService.update(id, product);
         if(productOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(productOptional.orElseThrow());
@@ -54,6 +63,17 @@ public class PedidoController {
             return ResponseEntity.ok(productOptional.orElseThrow());
         }
         return ResponseEntity.notFound().build();
+    }
+
+    private ResponseEntity<?> validation(BindingResult result) {
+        Map<String,String> errors = new HashMap<>();
+
+        result.getFieldErrors().forEach(fieldError ->{
+            errors.put(fieldError.getField(),"El campo "+fieldError.getField()+" "+fieldError.getDefaultMessage());
+        });
+
+        return ResponseEntity.badRequest().body(errors);
+
     }
 
 
