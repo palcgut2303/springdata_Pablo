@@ -54,6 +54,8 @@ public class Pedidos {
     @ManyToMany
     @JoinTable(name = "pedidos_productos",
                 joinColumns = @JoinColumn(name = "cod_pedido",referencedColumnName = "cod_pedido"),
-                inverseJoinColumns = @JoinColumn(name = "cod_producto",referencedColumnName = "cod_producto"))
+                inverseJoinColumns = @JoinColumn(name = "cod_producto",referencedColumnName = "cod_producto"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"cod_pedido","cod_producto"})}
+    )
     private Set<Productos> productos = new HashSet<>();
 }

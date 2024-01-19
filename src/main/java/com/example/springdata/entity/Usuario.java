@@ -7,10 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "usuario")
@@ -22,6 +19,22 @@ public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true)
+    private String username;
+
+    private String password;
+
+    @ManyToMany
+    @JoinTable(name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"),
+            uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","role_id"})}
+    )
+    private List<Role> roles;
+
+    @Transient
+    private boolean admin;
 
     @Column(name = "dni",unique = true)
     @Size(min = 2,max = 9)

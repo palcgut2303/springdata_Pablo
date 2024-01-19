@@ -13,4 +13,8 @@ public interface UserRepository extends JpaRepository<Usuario,Long> {
     Optional<Usuario> findByNombreAndAndApellidos(String nombre, String apellidos);
     Optional<Usuario> findAllByFechaNacimientoAfter(LocalDate fechaNacimiento);
     Optional<Usuario> findAllByFechaNacimientoBetween(LocalDate fechaMin, LocalDate fechaMax);*/
+
+
+
+
 }

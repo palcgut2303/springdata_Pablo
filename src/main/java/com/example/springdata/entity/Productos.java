@@ -42,11 +42,11 @@ public class Productos {
     @NotNull(message = "{NotNull.productos}")
     private String categoria;
 
-    @ManyToMany
+    /*@ManyToMany
     @JsonBackReference
     @JoinTable(name = "pedidos_productos",
             joinColumns = @JoinColumn(name = "cod_producto",referencedColumnName = "cod_producto"),
             inverseJoinColumns = @JoinColumn(name = "cod_pedido",referencedColumnName = "cod_pedido"))
-    private Set<Pedidos> pedidos = new HashSet<>();
+    private Set<Pedidos> pedidos = new HashSet<>();*/
 
 }
