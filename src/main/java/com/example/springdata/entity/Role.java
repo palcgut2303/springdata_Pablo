@@ -1,6 +1,7 @@
 package com.example.springdata.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,9 +12,11 @@ import lombok.NoArgsConstructor;
 @Entity
 public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true)
+    @Email
+    @Transient
+    @Column(name = "name", unique = true)
     private String name;
 }

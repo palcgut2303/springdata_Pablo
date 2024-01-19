@@ -57,10 +57,6 @@ public class Usuario {
     @Min(18)
     private int Edad;
 
-    @Column(name = "tipoUsuario")
-    @Enumerated(EnumType.STRING)
-    private tipoUsuario tipoUsuarioo;
-
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
     private Set<Pedidos> pedidos = new HashSet<>();
 }

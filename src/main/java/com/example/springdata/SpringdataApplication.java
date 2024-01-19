@@ -3,17 +3,9 @@ package com.example.springdata;
 import com.example.springdata.Repositories.PedidoRepository;
 import com.example.springdata.Repositories.ProductRepository;
 import com.example.springdata.Repositories.UserRepository;
-import com.example.springdata.entity.Pedidos;
-import com.example.springdata.entity.Usuario;
-import com.example.springdata.entity.tipoUsuario;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 @SpringBootApplication
 public class SpringdataApplication {
