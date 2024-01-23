@@ -21,8 +21,11 @@ public class Usuario {
     private Long id;
 
     @Column(unique = true)
+    @NotBlank
+    @Size(min = 4,max = 16)
     private String username;
 
+    @NotBlank
     private String password;
 
     @ManyToMany

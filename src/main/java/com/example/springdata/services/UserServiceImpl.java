@@ -1,7 +1,10 @@
 package com.example.springdata.services;
 
+import com.example.springdata.Repositories.RoleRepository;
 import com.example.springdata.Repositories.UserRepository;
+import com.example.springdata.entity.Role;
 import com.example.springdata.entity.Usuario;
+import com.example.springdata.security.SpringSecurityConfig;
 import org.apache.catalina.User;
 
 import java.time.LocalDate;
@@ -10,6 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository userRepository;
+     UserRepository userRepository;
+
+    @Autowired
+     RoleRepository roleRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)
@@ -35,6 +45,20 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Usuario save(Usuario usuario) {
+        Optional<Role> optionalRoleUser = roleRepository.findByName("ROLE_USER");
+        List<Role> rolesList = new ArrayList<>();
+        optionalRoleUser.ifPresent(rolesList::add);
+
+        if(usuario.isAdmin()){
+            Optional<Role> optionalRoleAdmin = roleRepository.findByName("ROLE_ADMIN");
+            optionalRoleAdmin.ifPresent(rolesList::add);
+        }
+
+        usuario.setRoles(rolesList);
+
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+
+
         return userRepository.save(usuario);
     }
 
