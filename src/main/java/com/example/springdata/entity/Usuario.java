@@ -62,4 +62,10 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
     private Set<Pedidos> pedidos = new HashSet<>();
+
+    private boolean enabled;
+    @PrePersist
+    public void prePresit(){
+        enabled = true;
+    }
 }

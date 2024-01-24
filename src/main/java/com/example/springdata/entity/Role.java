@@ -16,7 +16,6 @@ public class Role {
     private Long id;
 
     @Email
-    @Transient
     @Column(name = "name", unique = true)
     private String name;
 }

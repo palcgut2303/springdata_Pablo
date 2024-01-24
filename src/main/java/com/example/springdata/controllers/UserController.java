@@ -1,7 +1,6 @@
 package com.example.springdata.controllers;
 
 
-import com.example.springdata.Repositories.UserRepository;
 import com.example.springdata.entity.Usuario;
 import com.example.springdata.services.UserService;
 import jakarta.validation.Valid;
@@ -9,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -22,15 +20,15 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-    private UserService userRepository;
+    private UserService userService;
 
     @GetMapping
     public List<Usuario> list(){
-        return userRepository.findAll();
+        return userService.findAll();
     }
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> view(@PathVariable Long id){
-        Optional<Usuario> userOptional = userRepository.findById(id);
+        Optional<Usuario> userOptional = userService.findById(id);
         if(userOptional.isPresent()){
             return ResponseEntity.ok(userOptional.orElseThrow());
         }
@@ -42,7 +40,7 @@ public class UserController {
         if(result.hasFieldErrors()){
             return validation(result);
         }
-        return ResponseEntity.status(HttpStatus.CREATED).body(userRepository.save(user));
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }
 
     @PutMapping("/{id}")
@@ -50,7 +48,7 @@ public class UserController {
         if(result.hasFieldErrors()){
             return validation(result);
         }
-        Optional <Usuario> userOptional = userRepository.update(id, user);
+        Optional <Usuario> userOptional = userService.update(id, user);
         if(userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(userOptional.orElseThrow());
         }
@@ -59,7 +57,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Usuario> delete(@PathVariable Long id){
-        Optional<Usuario> userOptional = userRepository.delete(id);
+        Optional<Usuario> userOptional = userService.delete(id);
         if(userOptional.isPresent()){
             return ResponseEntity.ok(userOptional.orElseThrow());
         }
