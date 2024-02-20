@@ -44,9 +44,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> register(@Valid @RequestBody Usuario user, BindingResult result) {
-        user.setAdmin(false);
-        return create(user,result);
+    public ResponseEntity<?> register(@Valid @RequestBody Usuario user, BindingResult result){
+        return create(user, result);
     }
 
     @PutMapping("/{id}")

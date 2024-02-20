@@ -44,12 +44,13 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         try {
             user= new ObjectMapper().readValue(request.getInputStream(), Usuario.class);
+            username = user.getUsername();
+            password = user.getPassword();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        username = user.getUsername();
-        password = user.getPassword();
+
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username,password);
 
@@ -77,7 +78,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
                 .signWith(SECRET_KEY)
                 .compact();
 
-        response.addHeader(HEADER_AUTHORIZATION,PREFIX_TOKEN+" "+token);
+        response.addHeader(HEADER_AUTHORIZATION,PREFIX_TOKEN+token);
 
         Map<String,String> body = new HashMap<>();
         body.put("token",token);

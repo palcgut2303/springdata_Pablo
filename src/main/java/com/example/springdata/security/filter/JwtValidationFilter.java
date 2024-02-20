@@ -45,14 +45,14 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
         try {
             Claims claims = Jwts.parser().verifyWith(SECRET_KEY).build().parseSignedClaims(token).getPayload();
             String username = claims.getSubject();
-            // String username2 = (String) claims.get("username");
+
             String authoritiesClaims = (String) claims.get("authorities");
 
             Collection<? extends GrantedAuthority> authorities =Arrays.asList(new ObjectMapper()
                             .addMixIn(SimpleGrantedAuthority.class, SimpleGrantedAuthorityJsonCreator.class)
                             .readValue(authoritiesClaims.toString().getBytes(),SimpleGrantedAuthority[].class));
             UsernamePasswordAuthenticationToken authenticationToken = new
-                    UsernamePasswordAuthenticationToken(username, null, null);
+                    UsernamePasswordAuthenticationToken(username, null, authorities);
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
             chain.doFilter(request, response);
 
