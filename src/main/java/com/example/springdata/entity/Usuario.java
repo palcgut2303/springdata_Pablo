@@ -64,6 +64,7 @@ public class Usuario {
     private int Edad;
 
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Pedidos> pedidos = new HashSet<>();
 
     private boolean enabled;

@@ -47,7 +47,6 @@ public class Pedidos {
 
     @ManyToOne
     @JoinColumn(name = "id")
-    @JsonBackReference
     private Usuario usuario;
 
 
