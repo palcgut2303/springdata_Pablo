@@ -14,8 +14,7 @@ public interface ProductService {
     Optional <Productos> update(Long id, Productos product);
     Optional<Productos> delete(Long id);
 
-   // List<Productos> findAllByNombreProducto();
-    //Optional<Productos> findProductosByPrecioBetween(float precionMin, float precioMax);
-
-   // Optional<Productos> findProductosByCategoria(String categoria);
+    List<Productos> findAllByNombreProducto(String nombre);
+    List<Productos> findProductosByPrecioBetween(float precionMin, float precioMax);
+    List<Productos> findProductosByCategoria(String categoria);
 }

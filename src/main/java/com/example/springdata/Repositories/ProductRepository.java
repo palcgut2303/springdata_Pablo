@@ -7,11 +7,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Productos,Long> {
-/*
-    List<Productos> findAllByNombreProducto();
-    Optional<Productos> findProductosByPrecioBetween(float precionMin, float precioMax);
 
-
-    Optional<Productos> findProductosByCategoria(String categoria);*/
+    List<Productos> findAllByNombreProducto(String nombre);
+    List<Productos> findProductosByPrecioBetween(float precionMin, float precioMax);
+    List<Productos> findProductosByCategoria(String categoria);
 
 }

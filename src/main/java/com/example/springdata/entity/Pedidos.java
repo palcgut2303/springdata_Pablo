@@ -2,6 +2,7 @@ package com.example.springdata.entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -22,7 +24,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Pedidos {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cod_pedido;
@@ -41,20 +42,12 @@ public class Pedidos {
     @NotNull
     private LocalDate fechaEntrega;
 
-    @Column(name = "cantidad")
-    @Max(100)
-    private int cantidadProductos;
-
     @ManyToOne
     @JoinColumn(name = "id")
     private Usuario usuario;
 
 
-    @ManyToMany
-    @JoinTable(name = "pedidos_productos",
-                joinColumns = @JoinColumn(name = "cod_pedido",referencedColumnName = "cod_pedido"),
-                inverseJoinColumns = @JoinColumn(name = "cod_producto",referencedColumnName = "cod_producto"),
-            uniqueConstraints = {@UniqueConstraint(columnNames = {"cod_pedido","cod_producto"})}
-    )
-    private Set<Productos> productos = new HashSet<>();
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<PedidosProductos> pedidoProductos;
 }

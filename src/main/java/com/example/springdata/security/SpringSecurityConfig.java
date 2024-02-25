@@ -33,17 +33,32 @@ public class SpringSecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth -> auth
+                        //FILTRO USERS
                         .requestMatchers(HttpMethod.GET,"/api/users").permitAll()
                         .requestMatchers(HttpMethod.POST,"/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
+                        //FILTRO PRODUCTOS
                         .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/{id}").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/api/products").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/products/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/products/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/products/nombre").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.GET, "/api/products/categoria").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.GET, "/api/products/precio").hasAnyRole("ADMIN", "USER")
+                        //FILTRO PEDIDOS
                         .requestMatchers(HttpMethod.GET,"/api/pedidos").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/api/pedidos").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.PUT, "/api/pedidos/{id}").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/pedidos/{id}").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/direccion/{direccion}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/usuario/{usuarioId}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/fecha").hasRole("ADMIN")
+                        //FILTRO PEDIDOS_PRODUCTOS
+                        .requestMatchers(HttpMethod.GET,"/api/pedidosProductos").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.POST, "/api/pedidosProductos").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.PUT, "/api/pedidosProductos{id}").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.DELETE, "/api/pedidosProductos{id}").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtValidationFilter(authenticationManager()))

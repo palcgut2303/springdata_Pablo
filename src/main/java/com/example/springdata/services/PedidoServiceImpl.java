@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,10 +42,9 @@ public class PedidoServiceImpl implements PedidoService{
             Pedidos pedidoDB = pedidoOptional.orElseThrow();
             pedidoDB.setDireccionEnvio(pedidos.getDireccionEnvio());
             pedidoDB.setUsuario(pedidos.getUsuario());
-            pedidoDB.setProductos(pedidos.getProductos());
+            pedidoDB.setPedidoProductos(pedidos.getPedidoProductos());
             pedidoDB.setEstadoPedido(pedidos.getEstadoPedido());
             pedidoDB.setFechaEntrega(pedidos.getFechaEntrega());
-            pedidoDB.setProductos(pedidos.getProductos());
             return Optional.of(pedidoRepository.save(pedidoDB));
         }
 
@@ -58,9 +58,23 @@ public class PedidoServiceImpl implements PedidoService{
         peididoOptional.ifPresent( pedidoDb -> pedidoRepository.delete(pedidoDb));
         return peididoOptional;
     }
-  /*  @Override
-    @Transactional
-    public Optional<Pedidos> findByDireccionEnvio(String direccion){
-        return pedidoRepository.findByDireccionEnvio(direccion);
-    }*/
+
+
+   @Override
+    @Transactional(readOnly = true)
+    public List<Pedidos> findAllByDireccion(String direccion){
+        return pedidoRepository.findAllByDireccionEnvio(direccion);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Pedidos> findAllByUsuarioId(Long id) {
+        return pedidoRepository.findAllByUsuarioId(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Pedidos> findAllByFechaEntregaBetween(LocalDate fechaIn, LocalDate fechaFin) {
+        return pedidoRepository.findAllByFechaEntregaBetween(fechaIn,fechaFin);
+    }
 }

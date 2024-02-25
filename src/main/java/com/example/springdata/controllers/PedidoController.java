@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,27 @@ public class PedidoController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @GetMapping("/direccion/{direccion}")
+    public List<Pedidos> obtenerPedidosPorDireccionEnvio(@PathVariable String direccion){
+        return pedidoService.findAllByDireccion(direccion);
+
+    }
+
+    @GetMapping("/usuario/{usuarioId}")
+    public List<Pedidos> obtenerPedidosPorUsuario(@PathVariable Long usuarioId) {
+        return pedidoService.findAllByUsuarioId(usuarioId);
+
+    }
+
+    @GetMapping("/fecha")
+    public List<Pedidos> obtenerPedidosEntreFechas(
+            @RequestParam("fechaInicio") LocalDate fechaInicio,
+            @RequestParam("fechaFin") LocalDate fechaFin) {
+        return pedidoService.findAllByFechaEntregaBetween(fechaInicio,fechaFin);
+
+    }
+
 
     @PostMapping
     public ResponseEntity<?> create(@Valid @RequestBody Pedidos product, BindingResult result){
@@ -64,6 +86,8 @@ public class PedidoController {
         }
         return ResponseEntity.notFound().build();
     }
+
+
 
     private ResponseEntity<?> validation(BindingResult result) {
         Map<String,String> errors = new HashMap<>();

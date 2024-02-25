@@ -1,6 +1,7 @@
 package com.example.springdata.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -42,11 +43,18 @@ public class Productos {
     @NotNull(message = "{NotNull.productos}")
     private String categoria;
 
+
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<PedidosProductos> pedidoProductos;
+
     /*@ManyToMany
     @JsonBackReference
     @JoinTable(name = "pedidos_productos",
             joinColumns = @JoinColumn(name = "cod_producto",referencedColumnName = "cod_producto"),
             inverseJoinColumns = @JoinColumn(name = "cod_pedido",referencedColumnName = "cod_pedido"))
     private Set<Pedidos> pedidos = new HashSet<>();*/
+
+
 
 }
