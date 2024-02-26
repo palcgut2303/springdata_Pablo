@@ -87,27 +87,22 @@ public class UserServiceImpl implements UserService {
         return userOptional;
     }
 
-  /*  @Override
-    @Transactional
-    public Optional<Usuario> findByNombre(String nombre) {
-        return userRepository.findByNombre(nombre);
+    @Override
+    @Transactional(readOnly = true)
+    public List<Usuario> findAllByNombre(String nombre) {
+        return userRepository.findAllByNombre(nombre);
     }
 
     @Override
-    @Transactional
-    public Optional<Usuario> findByNombreAndAndApellidos(String nombre, String apellidos) {
-        return userRepository.findByNombreAndAndApellidos(nombre,apellidos);
+    @Transactional(readOnly = true)
+    public List<Usuario> findAllByApellidos(String apellidos) {
+        return userRepository.findAllByApellidos(apellidos);
     }
 
     @Override
-    @Transactional
-    public Optional<Usuario> findAllByFechaNacimientoAfter(LocalDate fechaNacimiento) {
-        return userRepository.findAllByFechaNacimientoAfter(fechaNacimiento);
+    @Transactional(readOnly = true)
+    public List<Usuario> findAllByEdadBetween(int edadMin,int edadMax) {
+        return userRepository.findAllByEdadBetween(edadMin,edadMax);
     }
 
-    @Override
-    @Transactional
-    public Optional<Usuario> findAllByFechaNacimientoBetween(LocalDate fechaMin, LocalDate fechaMax) {
-        return userRepository.findAllByFechaNacimientoBetween(fechaMin,fechaMax);
-    }*/
 }

@@ -15,9 +15,8 @@ public interface UserService {
     Optional <Usuario> update(Long id, Usuario usuario);
     Optional<Usuario> delete(Long id);
 
-    /*Optional<Usuario> findByNombre(String nombre);
-    Optional<Usuario> findByNombreAndAndApellidos(String nombre, String apellidos);
-    Optional<Usuario> findAllByFechaNacimientoAfter(LocalDate fechaNacimiento);
-    Optional<Usuario> findAllByFechaNacimientoBetween(LocalDate fechaMin, LocalDate fechaMax);*/
+    List<Usuario> findAllByNombre(String nombre);
+    List<Usuario> findAllByApellidos(String apellidos);
+    List<Usuario> findAllByEdadBetween(int edadMin,int edadMax);
 
 }

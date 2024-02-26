@@ -33,11 +33,16 @@ public class SpringSecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         return http.authorizeHttpRequests(auth -> auth
+                        //FILTRO SWAGGER
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll() // Permitir acceso a Swagger UI
                         //FILTRO USERS
-                        .requestMatchers(HttpMethod.GET,"/api/users").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/api/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/users/nombre").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/users/apellido").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/users/edad").hasRole("ADMIN")
                         //FILTRO PRODUCTOS
                         .requestMatchers(HttpMethod.GET, "/api/products", "/api/products/{id}").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/api/products").hasRole("ADMIN")
