@@ -1,6 +1,7 @@
 package com.example.springdata.controllers;
 
 
+import com.example.springdata.entity.Role;
 import com.example.springdata.entity.Usuario;
 import com.example.springdata.services.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,7 +50,24 @@ public class UserController {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Usuario.class)))})
     })
     @Operation(summary = "Encuentra usuario por Id",description = "Devuelve un usuario con un id especifico que nosotros introducimos")
-    public ResponseEntity<Usuario> view(@PathVariable Long id){
+    public ResponseEntity<?> view(@PathVariable Long id){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Optional<Usuario> usuarioOptional = userService.findByUsername(authentication.getName());
+
+        if(usuarioOptional.isEmpty()){
+            return ResponseEntity.badRequest().body("Error de verificacion");
+        }
+
+        Usuario usuarioLogin = usuarioOptional.orElseThrow();
+        List<Role> roles = usuarioLogin.getRoles();
+
+        if(roles.stream().noneMatch(role -> role.getName().equalsIgnoreCase("ROLE_ADMIN"))){
+            if(usuarioLogin.getId() != id){
+                return ResponseEntity.badRequest().body("Para ver a un usuario debes tener su mismo ID");
+            }
+        }
+
         Optional<Usuario> userOptional = userService.findById(id);
         if(userOptional.isPresent()){
             return ResponseEntity.ok(userOptional.orElseThrow());

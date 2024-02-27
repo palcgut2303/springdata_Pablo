@@ -37,6 +37,7 @@ public class SpringSecurityConfig {
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html").permitAll() // Permitir acceso a Swagger UI
                         //FILTRO USERS
                         .requestMatchers(HttpMethod.GET,"/api/users").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET,"/api/users/{id}").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST,"/api/users/register").permitAll()
                         .requestMatchers(HttpMethod.PUT,"/api/users/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")

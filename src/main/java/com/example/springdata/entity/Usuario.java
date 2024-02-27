@@ -73,7 +73,7 @@ public class Usuario {
     @Schema(example = "23", description = "Edad del usuario solo puede ser mayor de 18 años")
     private int Edad;
 
-    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "usuario",cascade = CascadeType.REMOVE)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Set<Pedidos> pedidos;
 

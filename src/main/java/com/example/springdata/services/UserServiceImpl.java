@@ -90,6 +90,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<Usuario> findByUsername(String nombre) {
+        return userRepository.findByUsername(nombre);
+    }
+
+    @Override
     @Transactional(readOnly = true)
     public List<Usuario> findAllByNombre(String nombre) {
         return userRepository.findAllByNombre(nombre);

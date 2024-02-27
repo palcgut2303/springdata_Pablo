@@ -14,6 +14,7 @@ public interface UserService {
     Usuario save (Usuario usuario);
     Optional <Usuario> update(Long id, Usuario usuario);
     Optional<Usuario> delete(Long id);
+    Optional<Usuario> findByUsername(String nombre);
 
     List<Usuario> findAllByNombre(String nombre);
     List<Usuario> findAllByApellidos(String apellidos);
