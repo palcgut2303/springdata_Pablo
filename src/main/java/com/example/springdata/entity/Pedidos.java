@@ -52,7 +52,7 @@ public class Pedidos {
     private Usuario usuario;
 
 
-    @OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "pedido", cascade = CascadeType.REMOVE)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PedidosProductos> pedidoProductos;
 }

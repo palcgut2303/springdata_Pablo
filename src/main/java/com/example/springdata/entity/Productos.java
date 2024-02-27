@@ -51,7 +51,7 @@ public class Productos {
     private String categoria;
 
 
-    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.REMOVE)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private List<PedidosProductos> pedidoProductos;
 

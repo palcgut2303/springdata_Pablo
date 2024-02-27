@@ -68,6 +68,8 @@ public class UserServiceImpl implements UserService {
         if(userOptional.isPresent()){
             Usuario userDB = userOptional.orElseThrow();
             userDB.setNombre(usuario.getNombre());
+            userDB.setPassword(passwordEncoder.encode(usuario.getPassword()));
+            userDB.setUsername(usuario.getUsername());
             userDB.setApellidos(usuario.getApellidos());
             userDB.setDNI(usuario.getDNI());
             userDB.setCorreo(usuario.getCorreo());

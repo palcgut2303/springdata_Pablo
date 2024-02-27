@@ -38,6 +38,7 @@ public class SpringSecurityConfig {
                         //FILTRO USERS
                         .requestMatchers(HttpMethod.GET,"/api/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST,"/api/users/register").permitAll()
+                        .requestMatchers(HttpMethod.PUT,"/api/users/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/api/users/{id}").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/api/users/nombre").hasRole("ADMIN")

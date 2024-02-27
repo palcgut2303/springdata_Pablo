@@ -34,7 +34,7 @@ public class Usuario {
     @Schema(example = "123", description = "Contraseña que nos servira para el login al igual que el usuario")
     private String password;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"),
@@ -73,9 +73,9 @@ public class Usuario {
     @Schema(example = "23", description = "Edad del usuario solo puede ser mayor de 18 años")
     private int Edad;
 
-    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "usuario",cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private Set<Pedidos> pedidos = new HashSet<>();
+    private Set<Pedidos> pedidos;
 
     private boolean enabled;
     @PrePersist

@@ -90,12 +90,18 @@ public class UserController {
         if (result.hasFieldErrors()) {
             return validation(result);
         }
+        List<Usuario> usuarios = userService.findAll();
+        for (Usuario u: usuarios) {
+            if(u.getDNI().equalsIgnoreCase(user.getDNI())){
+                return ResponseEntity.badRequest().body("El DNI ya existe en la base de datos");
+            }
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }
 
     @PostMapping("/register")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Registra usuarios en la base de datos.",content = {
+            @ApiResponse(responseCode = "200",description = "Usuario registrado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Usuario.class)))})
     })
     @Operation(summary = "Registrar Usuario",description = "Insertar usuarios en la base de datos.")
@@ -105,7 +111,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Actualizar usuarios.",content = {
+            @ApiResponse(responseCode = "200",description = "Usuario Actualizado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Usuario.class)))})
     })
     @Operation(summary = "Actualizacion de usuario",description = "Actualiza los usuarios registrados en la base de datos")
@@ -113,6 +119,13 @@ public class UserController {
         if(result.hasFieldErrors()){
             return validation(result);
         }
+        /*List<Usuario> usuarios = userService.findAll();
+
+        for (Usuario u: usuarios) {
+            if(u.getDNI().equalsIgnoreCase(user.getDNI())){
+                return ResponseEntity.badRequest().body("El DNI ya existe en la base de datos");
+            }
+        }*/
         Optional <Usuario> userOptional = userService.update(id, user);
         if(userOptional.isPresent()) {
             return ResponseEntity.status(HttpStatus.CREATED).body(userOptional.orElseThrow());
@@ -122,7 +135,7 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Borrar Usuarios.",content = {
+            @ApiResponse(responseCode = "200",description = "Usuario borrado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Usuario.class)))})
     })
     @Operation(summary = "Borrar Usuarios",description = "Borra usuarios a partir de una id.")

@@ -58,7 +58,7 @@ public class PedidoProductoController {
 
     @PostMapping
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Insertar un objeto de pedidos_productos.",content = {
+            @ApiResponse(responseCode = "200",description = "Objeto de pedidos_productos insertado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = PedidosProductos.class)))})
     })
     @Operation(summary = "Insertar un objeto de pedidos_productos",description = "Insertar un objeto de pedidos_productos en la base de datos.")
@@ -71,7 +71,7 @@ public class PedidoProductoController {
 
     @PutMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Actualizar un objeto de pedidos_productos.",content = {
+            @ApiResponse(responseCode = "200",description = "Objeto de pedidos_productos actualizado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = PedidosProductos.class)))})
     })
     @Operation(summary = "Actualizar un objeto de pedidos_productos",description = "Actualizar un objeto de pedidos_productos en la base de datos.")
@@ -88,7 +88,7 @@ public class PedidoProductoController {
 
     @DeleteMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Borrar un objeto de pedidos_productos.",content = {
+            @ApiResponse(responseCode = "200",description = "Objeto de pedidos_productos borrado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = PedidosProductos.class)))})
     })
     @Operation(summary = "Borrar un objeto de pedidos_productos",description = "Borrar un objeto de pedidos_productos en la base de datos.")

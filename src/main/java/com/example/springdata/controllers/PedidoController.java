@@ -47,7 +47,7 @@ public class PedidoController {
     }
     @GetMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Devuelve un pedido a partir de una id.",content = {
+            @ApiResponse(responseCode = "200",description = "Pedidos encontrados por la id.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Pedidos.class)))})
     })
     @Operation(summary = "Listado de pedido por id",description = "Devuelve un pedido que este en la base de datos por su id.")
@@ -61,7 +61,7 @@ public class PedidoController {
 
     @GetMapping("/direccion/{direccion}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Pedidos por direccion introducidad.",content = {
+            @ApiResponse(responseCode = "200",description = "Pedidos por direccion introducida.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Pedidos.class)))})
     })
     @Operation(summary = "Pedidos por direccion",description = "Devuelve una lista de pedidos que coincida con la direccion introducida.")
@@ -110,7 +110,7 @@ public class PedidoController {
 
     @PutMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Actualizacion de pedidos.",content = {
+            @ApiResponse(responseCode = "200",description = "Pedido actualizado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Pedidos.class)))})
     })
     @Operation(summary = "Actualizacion de pedidos",description = "Actualizar un pedidos de la base de datos cuyo id sea el que introduzcamos.")
@@ -127,7 +127,7 @@ public class PedidoController {
 
     @DeleteMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Borrar pedidos.",content = {
+            @ApiResponse(responseCode = "200",description = "Pedido Borrado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Pedidos.class)))})
     })
     @Operation(summary = "Borrado de pedido",description = "Borrar un pedido que se encuentra en la base de datos.")

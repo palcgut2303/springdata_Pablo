@@ -88,7 +88,7 @@ public class ProductController {
 
     @PostMapping
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Insertar Productos.",content = {
+            @ApiResponse(responseCode = "200",description = "Producto Insertado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Productos.class)))})
     })
     @Operation(summary = "Insertar Productos.",description = "Insertar productos en la base de datos")
@@ -101,7 +101,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Actualizacion de producto.",content = {
+            @ApiResponse(responseCode = "200",description = "Producto Actualizado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Productos.class)))})
     })
     @Operation(summary = "Actualizar producto.",description = "Actualiza un producto de la base de datos.")
@@ -118,7 +118,7 @@ public class ProductController {
 
     @DeleteMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",description = "Borra un producto.",content = {
+            @ApiResponse(responseCode = "200",description = "Producto Borrado.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Productos.class)))})
     })
     @Operation(summary = "Borra un producto.",description = "Borra un producto de la base de datos.")
