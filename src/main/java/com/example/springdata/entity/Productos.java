@@ -2,6 +2,7 @@ package com.example.springdata.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -23,7 +24,7 @@ public class Productos {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(example = "1",description = "Codigo Identificador del Productos, autoincremental")
+    @Hidden
     private Long cod_producto;
 
     @Column(name = "nombre_producto")

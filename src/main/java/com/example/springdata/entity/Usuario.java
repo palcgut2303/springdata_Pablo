@@ -1,6 +1,7 @@
 package com.example.springdata.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -20,7 +21,7 @@ public class Usuario {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(example = "1",description = "Codigo Identificador del usuario, autoincremental")
+    @Hidden
     private Long id;
 
     @Column(unique = true)
@@ -40,10 +41,12 @@ public class Usuario {
             inverseJoinColumns = @JoinColumn(name = "role_id"),
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id","role_id"})}
     )
+    @Hidden
     private List<Role> roles;
 
     @Transient
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Hidden
     private boolean admin;
 
     @Column(name = "dni",unique = true)
@@ -75,8 +78,10 @@ public class Usuario {
 
     @OneToMany(mappedBy = "usuario",cascade = CascadeType.REMOVE)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Hidden
     private Set<Pedidos> pedidos;
 
+    @Hidden
     private boolean enabled;
     @PrePersist
     public void prePresit(){

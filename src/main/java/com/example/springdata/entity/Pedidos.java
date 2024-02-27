@@ -3,6 +3,7 @@ package com.example.springdata.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
@@ -27,7 +28,7 @@ import java.util.Set;
 public class Pedidos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Schema(example = "1",description = "Codigo Identificador del pedido, autoincremental")
+    @Hidden
     private Long cod_pedido;
 
     @Column(name = "direccion_envio",nullable = false)
@@ -54,5 +55,6 @@ public class Pedidos {
 
     @OneToMany(mappedBy = "pedido", cascade = CascadeType.REMOVE)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Hidden
     private List<PedidosProductos> pedidoProductos;
 }
