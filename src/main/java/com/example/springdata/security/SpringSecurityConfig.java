@@ -55,6 +55,7 @@ public class SpringSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/products/precio").hasAnyRole("ADMIN", "USER")
                         //FILTRO PEDIDOS
                         .requestMatchers(HttpMethod.GET,"/api/pedidos").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.GET, "/api/pedidos/{id}").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/api/pedidos").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.PUT, "/api/pedidos/{id}").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/pedidos/{id}").hasAnyRole("ADMIN", "USER")
@@ -64,7 +65,7 @@ public class SpringSecurityConfig {
                         //FILTRO PEDIDOS_PRODUCTOS
                         .requestMatchers(HttpMethod.GET,"/api/pedidosProductos").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/api/pedidosProductos").hasAnyRole("ADMIN", "USER")
-                        .requestMatchers(HttpMethod.PUT, "/api/pedidosProductos{id}").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers(HttpMethod.PUT, "/api/pedidosProductos/{id}").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/pedidosProductos{id}").hasAnyRole("ADMIN", "USER")
                         .anyRequest().authenticated())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))

@@ -112,10 +112,11 @@ public class UserController {
         }
         List<Usuario> usuarios = userService.findAll();
         for (Usuario u: usuarios) {
-            if(u.getDNI().equalsIgnoreCase(user.getDNI())){
+            if (u.getDNI().equalsIgnoreCase(user.getDNI())) {
                 return ResponseEntity.badRequest().body("El DNI ya existe en la base de datos");
             }
         }
+
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }
 

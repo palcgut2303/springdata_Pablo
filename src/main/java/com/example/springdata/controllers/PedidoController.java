@@ -2,8 +2,10 @@ package com.example.springdata.controllers;
 
 
 import com.example.springdata.entity.Pedidos;
+import com.example.springdata.entity.Role;
 import com.example.springdata.entity.Usuario;
 import com.example.springdata.services.PedidoService;
+import com.example.springdata.services.UserService;
 import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -13,10 +15,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -36,13 +39,32 @@ public class PedidoController {
     @Autowired
     private PedidoService pedidoService;
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",description = "Lista de pedidos.",content = {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Pedidos.class)))})
     })
     @Operation(summary = "Listado de pedidos",description = "Devuelve una lista de pedidos que este en la base de datos.")
-    public List<Pedidos> list(){
+    public List<?> list(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Optional<Usuario> usuarioOptional = userService.findByUsername(authentication.getName());
+
+        if(usuarioOptional.isEmpty()){
+            return null;
+        }
+
+        Usuario usuarioLogin = usuarioOptional.orElseThrow();
+        List<Role> roles = usuarioLogin.getRoles();
+
+        if(roles.stream().noneMatch(role -> role.getName().equalsIgnoreCase("ROLE_ADMIN"))){
+            return pedidoService.findAllByUsuarioId(usuarioLogin.getId());
+
+        }
+
         return pedidoService.findAll();
     }
     @GetMapping("/{id}")
@@ -51,7 +73,29 @@ public class PedidoController {
                     @Content(mediaType = "application/json",array = @ArraySchema(schema = @Schema(implementation = Pedidos.class)))})
     })
     @Operation(summary = "Listado de pedido por id",description = "Devuelve un pedido que este en la base de datos por su id.")
-    public ResponseEntity<Pedidos> view(@PathVariable Long id){
+    public ResponseEntity<?> view(@PathVariable Long id){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        Optional<Usuario> usuarioOptional = userService.findByUsername(authentication.getName());
+
+        if(usuarioOptional.isEmpty()){
+            return ResponseEntity.badRequest().body("Error de verificacion");
+        }
+
+        Usuario usuarioLogin = usuarioOptional.orElseThrow();
+        List<Role> roles = usuarioLogin.getRoles();
+
+        if(roles.stream().noneMatch(role -> role.getName().equalsIgnoreCase("ROLE_ADMIN"))){
+            Optional<Pedidos> productOptional = pedidoService.findById(id);
+
+            Pedidos pedido = productOptional.orElseThrow();
+
+            if(pedido.getUsuario().getId() != usuarioLogin.getId()){
+                return ResponseEntity.badRequest().body("Solo puedes ver los pedidos realizados por ti.");
+            }else{
+                return ResponseEntity.ok(productOptional.orElseThrow());
+            }
+        }
         Optional<Pedidos> productOptional = pedidoService.findById(id);
         if(productOptional.isPresent()){
             return ResponseEntity.ok(productOptional.orElseThrow());
